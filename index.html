@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Rush — des combats de robots pour pratiquer les maths · de la 1re à la 6e année</title>
+<meta name="description" content="Math Rush : résous le calcul, ton robot tire. Combats rapides, campagne de 10 secteurs, duel à deux et duel en ligne. De la 1re à la 6e année, en français et en anglais. Gratuit, sans compte, sans publicité.">
+<meta property="og:title" content="Math Rush — combats de robots et de maths">
+<meta property="og:description" content="Une bonne réponse fait tirer ton robot. Campagne, duel à deux, duel en ligne. De la 1re à la 6e année.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b1230">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12204a;--ink-2:#46547f;--paper:#f2f6ff;--night:#0b1230;--gold:#ffc933;--gold-d:#d99a14;--blue:#2f8cff;--red:#e5483c;--purple:#7b3fe4;--r:22px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:Fredoka,Poppins,sans-serif;line-height:1.08;letter-spacing:-.01em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+body[data-lang="fr"] .en{display:none!important}
+body[data-lang="en"] .fr{display:none!important}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.6em;border-radius:999px;font-weight:700;text-decoration:none;transition:transform .15s,box-shadow .15s;border:3px solid var(--ink);cursor:pointer;font-size:1rem;font-family:inherit}
+.btn-gold{background:linear-gradient(180deg,#ffe17a,var(--gold));color:var(--ink);box-shadow:0 6px 0 var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--ink)}
+.btn-ghost{background:#fff;color:var(--ink);box-shadow:0 6px 0 var(--ink)}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--ink)}
+.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed;pointer-events:none;box-shadow:0 4px 0 var(--ink)}
+.tag{display:inline-block;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#7a4f00;background:#fff0c2;border:2px solid var(--gold-d);padding:.25em .8em;border-radius:999px}
+header{position:sticky;top:0;z-index:50;background:rgba(242,246,255,.9);backdrop-filter:blur(10px);border-bottom:2px solid rgba(18,32,74,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:14px}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:Fredoka;font-weight:700;font-size:1.35rem;text-decoration:none}
+.logo img{width:40px;height:40px;border-radius:10px}
+.nav ul{display:flex;gap:1.8rem;list-style:none;font-weight:600;font-size:.95rem}
+.nav ul a{text-decoration:none;opacity:.8}.nav ul a:hover{opacity:1;color:var(--blue)}
+.lang{display:flex;gap:6px}
+.lang button{font:700 .85rem Poppins;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:.3em .8em;cursor:pointer;color:var(--ink)}
+body[data-lang="fr"] .lang .b-fr,body[data-lang="en"] .lang .b-en{background:var(--gold)}
+@media (max-width:820px){.nav ul{display:none}}
+.hero{position:relative;padding:56px 0 90px;color:#fff;background:var(--night) url(img/fond-menu.jpg) center/cover;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,48,.5),rgba(11,18,48,.88))}
+.hero .wrap{position:relative;text-align:center}
+.hero-logo{width:min(520px,86%);margin:0 auto 6px;filter:drop-shadow(0 14px 24px rgba(0,0,0,.55));animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-.6deg)}}
+.badge{display:inline-flex;align-items:center;gap:.6em;background:var(--gold);color:var(--ink);border:3px solid var(--ink);border-radius:999px;padding:.4em 1.2em;font-family:Fredoka;font-weight:700;font-size:1.2rem;box-shadow:0 5px 0 var(--ink);margin:8px 0 18px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.3rem);margin-bottom:.35em}
+.hero p.lead{font-size:1.15rem;color:#dbe6ff;max-width:36em;margin:0 auto}
+.duel-stage{display:flex;justify-content:center;align-items:flex-end;gap:clamp(8px,6vw,90px);margin:26px auto 0;max-width:760px}
+.duel-stage img{height:clamp(130px,22vw,250px);width:auto;filter:drop-shadow(0 12px 14px rgba(0,0,0,.5))}
+.duel-stage .foe{transform:scaleX(-1)}
+.vs{font-family:Fredoka;font-weight:700;font-size:clamp(2rem,5vw,3.4rem);color:var(--gold);text-shadow:0 5px 0 #000;align-self:center}
+.cta-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:28px 0 22px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.facts>span{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.55);border-radius:14px;padding:.3em .9em;font-weight:600;font-size:.9rem}
+.ticker{background:var(--ink);color:#fff;padding:16px 0;border-block:3px solid var(--gold)}
+.track{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 46px;padding:0 16px}
+.track div{font-family:Fredoka;font-size:1.3rem;font-weight:600;white-space:nowrap}.track b{color:var(--gold)}
+section{padding:92px 0}
+.head{text-align:center;max-width:740px;margin:0 auto 50px}
+.head h2{font-size:clamp(2rem,4.2vw,3rem);margin:.35em 0 .3em}
+.head p{color:var(--ink-2);font-size:1.08rem}
+/* modes */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:var(--r);padding:28px;box-shadow:0 8px 0 var(--ink);transition:transform .2s}
+.card:hover{transform:translateY(-6px) rotate(-.4deg)}
+.card .ico{font-size:2.3rem;width:72px;height:72px;border-radius:20px;display:grid;place-items:center;margin-bottom:14px;border:3px solid var(--ink);background:var(--gold)}
+.card h3{font-size:1.4rem;margin-bottom:.35em}.card p{color:var(--ink-2)}
+@media (max-width:980px){.features{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.features{grid-template-columns:1fr}}
+/* années / ennemis */
+.years{background:#e4ecff}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.year{position:relative;border:3px solid var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:0 8px 0 var(--ink);background:#fff;transition:transform .2s}
+.year:hover{transform:translateY(-6px)}
+.year .top{position:relative;height:230px;background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.year .top::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,18,48,.35))}
+.year .top img{position:relative;z-index:1;max-height:200px;width:auto;margin-bottom:8px;filter:drop-shadow(0 8px 8px rgba(0,0,0,.5))}
+.year .num{position:absolute;z-index:2;top:10px;left:12px;background:var(--gold);color:var(--ink);border:3px solid var(--ink);border-radius:50%;width:46px;height:46px;display:grid;place-items:center;font-family:Fredoka;font-weight:700;font-size:1.4rem}
+.year .body{padding:16px 18px 20px;border-top:3px solid var(--ink)}
+.year h3{font-size:1.35rem}.year small{display:block;font-weight:700;color:var(--blue);margin-bottom:.2em}
+.year p{color:var(--ink-2);font-size:.95rem}
+@media (max-width:980px){.grid6{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid6{grid-template-columns:1fr}}
+/* duel */
+.duel{background:var(--night);color:#fff}
+.duel .head p{color:#c8d6ff}
+.duel-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+.duel-grid h3{font-size:2rem;margin:.3em 0}
+.duel-grid p{color:#c8d6ff;margin-bottom:.8em;font-size:1.05rem}
+.code{display:inline-block;font-family:Fredoka;font-weight:700;font-size:3.4rem;letter-spacing:.18em;color:var(--gold);background:#06091f;border:3px solid var(--gold);border-radius:18px;padding:.1em .45em;text-shadow:0 4px 0 #000;margin:.2em 0 .4em}
+.panel{background:#121c47;border:3px solid var(--gold);border-radius:var(--r);padding:26px;box-shadow:0 8px 0 #000}
+.panel .row{display:flex;justify-content:space-between;gap:12px;margin:.55em 0;font-weight:600}
+.bar{height:16px;border-radius:99px;background:#06091f;overflow:hidden;border:2px solid #fff}.bar i{display:block;height:100%}
+.keys{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.keys kbd{background:#fff;color:var(--ink);border:2px solid var(--ink);border-bottom-width:5px;border-radius:9px;padding:.15em .6em;font-weight:700}
+@media (max-width:900px){.duel-grid{grid-template-columns:1fr}}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:s}
+.step{position:relative;background:#fff;border:3px solid var(--ink);border-radius:var(--r);padding:44px 22px 24px;box-shadow:0 8px 0 var(--ink)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-24px;left:22px;width:48px;height:48px;border-radius:50%;background:var(--gold);border:3px solid var(--ink);display:grid;place-items:center;font-family:Fredoka;font-weight:700;font-size:1.4rem}
+.step h3{font-size:1.2rem;margin-bottom:.4em}.step p{color:var(--ink-2);font-size:.95rem}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr);row-gap:40px}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+/* jouer */
+.play{background:linear-gradient(135deg,#12204a,#2a2f8f);color:#fff;text-align:center}
+.play h2{font-size:clamp(2.1rem,5vw,3.4rem);margin:.3em 0}
+.play p{color:#d4defa;max-width:36em;margin:0 auto 26px;font-size:1.1rem}
+.stores{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hint{margin-top:18px;font-size:.9rem;color:#aebcec}
+footer{background:var(--night);color:#c8d6ff;padding:34px 0;font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
+footer a{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.hero-logo{animation:none}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body data-lang="fr">
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><img src="icon-192.png" alt=""><span>Math Rush</span></a>
+    <ul>
+      <li><a href="#modes"><span class="fr">Modes de jeu</span><span class="en">Game modes</span></a></li>
+      <li><a href="#annees"><span class="fr">1re à 6e année</span><span class="en">Grades 1–6</span></a></li>
+      <li><a href="#duel"><span class="fr">Duel</span><span class="en">Duel</span></a></li>
+      <li><a href="#jouer"><span class="fr">Jouer</span><span class="en">Play</span></a></li>
+    </ul>
+    <div class="lang"><button class="b-fr" data-l="fr">FR</button><button class="b-en" data-l="en">EN</button></div>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <img class="hero-logo" src="img/logo.webp" alt="Math Rush" width="1000" height="530">
+    <div class="badge">🤖 <span class="fr">Combats de robots et de maths</span><span class="en">Robot battles and math</span></div>
+    <h1><span class="fr">Bonne réponse, ton robot tire!</span><span class="en">Right answer, your robot fires!</span></h1>
+    <p class="lead">
+      <span class="fr">Résous le calcul avant la fin du minuteur. Chaque bonne réponse fait feu, une série de trois déclenche la surcharge. De la 1re à la 6e année, en français et en anglais.</span>
+      <span class="en">Solve the problem before the timer runs out. Every right answer fires, a streak of three triggers overdrive. Grades 1 to 6, in English and French.</span>
+    </p>
+    <div class="duel-stage" aria-hidden="true">
+      <img src="img/robot1.webp" alt="" width="260" height="286">
+      <div class="vs">VS</div>
+      <img class="foe" src="img/e3.webp" alt="" width="300" height="300">
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#jouer">▶ <span class="fr">Jouer</span><span class="en">Play</span></a>
+      <a class="btn btn-ghost" href="#modes"><span class="fr">Voir les modes de jeu</span><span class="en">See the game modes</span></a>
+    </div>
+    <div class="facts">
+      <span><span class="fr">Gratuit</span><span class="en">Free</span></span>
+      <span><span class="fr">Sans compte, sans publicité</span><span class="en">No account, no ads</span></span>
+      <span><span class="fr">1re à 6e année</span><span class="en">Grades 1 to 6</span></span>
+      <span><span class="fr">Duel à deux et en ligne</span><span class="en">2-player and online duel</span></span>
+      <span>Français · English</span>
+    </div>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true"><div class="track">
+  <div><b>+</b> <span class="fr">Additions</span><span class="en">Addition</span></div>
+  <div><b>×</b> <span class="fr">Tables</span><span class="en">Tables</span></div>
+  <div><b>÷</b> <span class="fr">Fractions</span><span class="en">Fractions</span></div>
+  <div><b>%</b> <span class="fr">Pourcentages</span><span class="en">Percentages</span></div>
+  <div><b>x</b> <span class="fr">Algèbre</span><span class="en">Algebra</span></div>
+  <div><b>★</b> Math Rush</div>
+</div></div>
+
+<section id="modes">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="tag"><span class="fr">Modes de jeu</span><span class="en">Game modes</span></span>
+      <h2><span class="fr">Des maths qui font du bruit</span><span class="en">Math that makes some noise</span></h2>
+      <p><span class="fr">Un duel rapide, une longue campagne, un ami à côté de toi ou à l'autre bout du pays : choisis ta façon de pratiquer.</span><span class="en">A quick battle, a long campaign, a friend next to you or across the country: pick how you want to practice.</span></p>
+    </div>
+    <div class="features">
+      <div class="card reveal"><div class="ico">⚡</div><h3><span class="fr">Partie rapide</span><span class="en">Quick play</span></h3><p><span class="fr">Choisis ton année et une opération, puis affronte des vagues d'ennemis. Parfait pour s'entraîner cinq minutes.</span><span class="en">Pick your grade and an operation, then face waves of enemies. Perfect for a five-minute workout.</span></p></div>
+      <div class="card reveal"><div class="ico">🗺️</div><h3><span class="fr">Campagne : 10 secteurs</span><span class="en">Campaign: 10 sectors</span></h3><p><span class="fr">Traverse la carte, bats le boss de chaque secteur et gagne des étoiles. Les quatre derniers secteurs poussent la 6e année encore plus loin.</span><span class="en">Cross the map, beat each sector's boss and earn stars. The last four sectors push grade 6 even further.</span></p></div>
+      <div class="card reveal"><div class="ico">🆚</div><h3><span class="fr">Duel à deux</span><span class="en">2-player duel</span></h3><p><span class="fr">Même question pour les deux : le plus rapide touche son adversaire. Sur le même écran, au toucher ou au clavier.</span><span class="en">Same question for both: the fastest hits their opponent. On one screen, by touch or keyboard.</span></p></div>
+      <div class="card reveal"><div class="ico">🌐</div><h3><span class="fr">Duel en ligne</span><span class="en">Online duel</span></h3><p><span class="fr">Crée une salle, donne le code à quatre chiffres à un ami et affrontez-vous de chez vous.</span><span class="en">Create a room, give the 4-digit code to a friend and battle from your own homes.</span></p></div>
+      <div class="card reveal"><div class="ico">🔧</div><h3><span class="fr">Hangar à robots</span><span class="en">Robot hangar</span></h3><p><span class="fr">Récolte des boulons et améliore ton robot : armes, armure et plus de temps pour répondre.</span><span class="en">Collect bolts and upgrade your robot: weapons, armor and extra time to answer.</span></p></div>
+      <div class="card reveal"><div class="ico">🔥</div><h3><span class="fr">Séries et surcharge</span><span class="en">Streaks and overdrive</span></h3><p><span class="fr">Trois bonnes réponses d'affilée et les dégâts doublent. Une erreur ou le temps écoulé, et l'ennemi attaque!</span><span class="en">Three right answers in a row and damage doubles. A mistake or a timeout, and the enemy strikes!</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="years" id="annees">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="tag"><span class="fr">De la 1re à la 6e année</span><span class="en">Grades 1 to 6</span></span>
+      <h2><span class="fr">Un ennemi pour chaque année</span><span class="en">An enemy for every grade</span></h2>
+      <p><span class="fr">Le contenu suit le programme : chaque année a ses calculs, son décor et son robot ennemi.</span><span class="en">The content follows the school curriculum: every grade has its own math, scenery and enemy robot.</span></p>
+    </div>
+    <div class="grid6">
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur1.webp)"><div class="num">1</div><img src="img/e1.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">1re année · Cour de ferraille</span><span class="en">Grade 1 · Scrapyard Outpost</span></small><h3><span class="fr">Drone éclaireur</span><span class="en">Scout Drone</span></h3><p><span class="fr">Additions et soustractions jusqu'à 20.</span><span class="en">Add and subtract up to 20.</span></p></div></article>
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur2.webp)"><div class="num">2</div><img src="img/e2.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">2e année · Atelier des rouleurs</span><span class="en">Grade 2 · Roller Workshop</span></small><h3><span class="fr">Robot rouleur</span><span class="en">Roller Bot</span></h3><p><span class="fr">Calculs à 2 chiffres, sauts de compte.</span><span class="en">2-digit math, skip counting.</span></p></div></article>
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur3.webp)"><div class="num">3</div><img src="img/e3.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">3e année · Zone des tourelles</span><span class="en">Grade 3 · Turret Zone</span></small><h3><span class="fr">Méca tourelle</span><span class="en">Turret Mech</span></h3><p><span class="fr">Tables de multiplication et division.</span><span class="en">Multiplication and division tables.</span></p></div></article>
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur4.webp)"><div class="num">4</div><img src="img/e4.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">4e année · Forteresse blindée</span><span class="en">Grade 4 · Armored Fortress</span></small><h3><span class="fr">Marcheur blindé</span><span class="en">Armored Walker</span></h3><p><span class="fr">Multiplications, divisions, fractions.</span><span class="en">Multiply, divide, fractions.</span></p></div></article>
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur5.webp)"><div class="num">5</div><img src="img/e5.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">5e année · Usine néon</span><span class="en">Grade 5 · Neon Factory</span></small><h3><span class="fr">Titan plasma</span><span class="en">Plasma Titan</span></h3><p><span class="fr">Décimaux, aire et périmètre.</span><span class="en">Decimals, area and perimeter.</span></p></div></article>
+      <article class="year reveal"><div class="top" style="background-image:url(img/secteur6.webp)"><div class="num">6</div><img src="img/e6.webp" alt="" loading="lazy"></div><div class="body"><small><span class="fr">6e année · Noyau orbital</span><span class="en">Grade 6 · Orbital Core</span></small><h3><span class="fr">Seigneur</span><span class="en">Overlord</span></h3><p><span class="fr">Pourcentages, priorité des opérations, algèbre.</span><span class="en">Percentages, order of operations, algebra.</span></p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="duel" id="duel">
+  <div class="wrap duel-grid">
+    <div class="reveal">
+      <span class="tag"><span class="fr">Nouveau</span><span class="en">New</span></span>
+      <h3><span class="fr">Le duel : le plus rapide gagne</span><span class="en">The duel: fastest wins</span></h3>
+      <p><span class="fr">Deux robots, une seule question. Le premier à répondre juste fait 25 dégâts, et les victoires d'affilée frappent plus fort. Une mauvaise réponse te bloque deux secondes.</span><span class="en">Two robots, one question. The first to answer correctly deals 25 damage, and win streaks hit harder. A wrong answer locks you out for two seconds.</span></p>
+      <p><span class="fr">En ligne, le serveur arbitre : personne ne peut tricher. Voici un code de salle :</span><span class="en">Online, the server is the referee: nobody can cheat. Here is a room code:</span></p>
+      <div class="code">4 7 2 9</div>
+      <div class="keys"><span class="fr">Au clavier :</span><span class="en">Keyboard:</span> <kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd> · <kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></div>
+    </div>
+    <div class="panel reveal">
+      <div class="row"><span><span class="fr">Joueur 1</span><span class="en">Player 1</span></span><span>75 / 100</span></div>
+      <div class="bar"><i style="width:75%;background:linear-gradient(90deg,#3dd16f,#a6f06b)"></i></div>
+      <div class="row" style="margin-top:22px"><span><span class="fr">Joueur 2</span><span class="en">Player 2</span></span><span>50 / 100</span></div>
+      <div class="bar"><i style="width:50%;background:linear-gradient(90deg,#ff7a3d,#ffc933)"></i></div>
+      <div style="text-align:center;font-family:Fredoka;font-size:2.6rem;margin:26px 0 6px">7 × 8 = ?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="btn btn-ghost" style="justify-content:center;box-shadow:0 5px 0 #000">54</div><div class="btn btn-gold" style="justify-content:center;box-shadow:0 5px 0 #000">56</div>
+        <div class="btn btn-ghost" style="justify-content:center;box-shadow:0 5px 0 #000">64</div><div class="btn btn-ghost" style="justify-content:center;box-shadow:0 5px 0 #000">49</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head reveal"><span class="tag"><span class="fr">Comment ça marche</span><span class="en">How it works</span></span>
+      <h2><span class="fr">Un combat en quatre étapes</span><span class="en">A battle in four steps</span></h2></div>
+    <div class="steps">
+      <div class="step reveal"><h3><span class="fr">Choisis ton année</span><span class="en">Pick your grade</span></h3><p><span class="fr">De la 1re à la 6e, ou laisse la campagne te guider.</span><span class="en">From grade 1 to 6, or let the campaign guide you.</span></p></div>
+      <div class="step reveal"><h3><span class="fr">Lis le calcul</span><span class="en">Read the problem</span></h3><p><span class="fr">Le minuteur défile : réfléchis vite, mais pas trop vite.</span><span class="en">The timer is running: think fast, but not too fast.</span></p></div>
+      <div class="step reveal"><h3><span class="fr">Touche la bonne réponse</span><span class="en">Tap the right answer</span></h3><p><span class="fr">Ton robot tire. Une erreur laisse l'ennemi attaquer.</span><span class="en">Your robot fires. A mistake lets the enemy attack.</span></p></div>
+      <div class="step reveal"><h3><span class="fr">Gagne des étoiles</span><span class="en">Earn stars</span></h3><p><span class="fr">Bats le boss, récolte des boulons et améliore ton robot.</span><span class="en">Beat the boss, collect bolts and upgrade your robot.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="play" id="jouer">
+  <div class="wrap reveal">
+    <span class="tag"><span class="fr">À toi de jouer</span><span class="en">Your turn</span></span>
+    <h2><span class="fr">Prêt pour le combat?</span><span class="en">Ready to battle?</span></h2>
+    <p><span class="fr">Math Rush est gratuit, sans compte et sans publicité. Ta progression reste sur ton appareil.</span><span class="en">Math Rush is free, with no account and no ads. Your progress stays on your device.</span></p>
+    <div class="stores">
+      <a class="btn btn-gold" href="jouer/">🌐 <span class="fr">Jouer dans le navigateur</span><span class="en">Play in your browser</span></a>
+      <a class="btn btn-ghost" aria-disabled="true">▶ Google Play · <span class="fr">bientôt</span><span class="en">soon</span></a>
+      <a class="btn btn-ghost" aria-disabled="true"> App Store · <span class="fr">bientôt</span><span class="en">soon</span></a>
+    </div>
+    <p class="hint"><span class="fr">Le jeu est en développement : de nouveaux secteurs et de nouvelles images arrivent.</span><span class="en">The game is in development: new sectors and new artwork are on the way.</span></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Francis Labonville · Xalibur Games</span>
+    <span><span class="fr">Fait au Québec avec GameMaker</span><span class="en">Made in Québec with GameMaker</span></span>
+    <span><a href="mailto:xaliburgames@gmail.com">xaliburgames@gmail.com</a> · <a href="confidentialite.html"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.body, L="fr";
+  try{ L=localStorage.getItem("mr_lang")||""; }catch(e){}
+  if(L!=="fr"&&L!=="en"){ L=(navigator.language||"fr").toLowerCase().indexOf("en")===0?"en":"fr"; }
+  function set(l){ b.setAttribute("data-lang",l); document.documentElement.lang=(l==="en")?"en":"fr-CA"; try{localStorage.setItem("mr_lang",l);}catch(e){} }
+  set(L);
+  document.querySelectorAll(".lang button").forEach(function(x){x.addEventListener("click",function(){set(x.getAttribute("data-l"));});});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(function(el,i){el.style.transitionDelay=(i%4)*80+"ms";io.observe(el);});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  // Math Rush : site statique + serveur du duel en ligne (Durable Object "Salle") dans le meme Worker.
+  // Les pages du site sont servies directement ; seule l'adresse /ws passe par le code du Worker.
+  "name": "math-rush",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/ws", "/api/*"]
+  },
+  "durable_objects": {
+    "bindings": [ { "name": "SALLES", "class_name": "Salle" } ]
+  },
+  "migrations": [ { "tag": "v1", "new_sqlite_classes": ["Salle"] } ],
+  "workers_dev": true
+  // Quand le domaine sera choisi, ajouter par exemple :
+  // "routes": [ { "pattern": "mathrush.xalibur.cc", "custom_domain": true } ]
+}
