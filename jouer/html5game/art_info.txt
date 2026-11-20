@@ -1,0 +1,26 @@
+robot.png 1600x440 4 frames 400x440 origine bas-centre
+enemy1.png 1260x420 3 frames 420x420 origine bas-centre
+enemy2.png 1260x420 3 frames 420x420 origine bas-centre
+enemy3.png 1260x420 3 frames 420x420 origine bas-centre
+enemy4.png 1260x420 3 frames 420x420 origine bas-centre
+enemy5.png 1260x420 3 frames 420x420 origine bas-centre
+enemy6.png 1040x520 2 frames 520x520 origine bas-centre
+btn0.png 1080x150 3 frames 360x150 : normal, appuyé, désactivé (or, bleu, vert, rouge)
+btn1.png 1080x150 3 frames 360x150 : normal, appuyé, désactivé (or, bleu, vert, rouge)
+btn2.png 1080x150 3 frames 360x150 : normal, appuyé, désactivé (or, bleu, vert, rouge)
+btn3.png 1080x150 3 frames 360x150 : normal, appuyé, désactivé (or, bleu, vert, rouge)
+ans.png 2080x230 4 frames 520x230 : normal, survol, juste, faux
+panel_big.png 1501x1458 panneau (grand, moyen, petit)
+panel_mid.png 1149x764 panneau (grand, moyen, petit)
+panel_small.png 781x618 panneau (grand, moyen, petit)
+bars.png 5760x130 8 frames 720x130 : (pleine, vide) x joueur, ennemi, bouclier, minuteur
+bg1.jpg 1920x1080
+bg2.jpg 1920x1080
+bg3.jpg 1920x1080
+bg4.jpg 1920x1080
+bg5.jpg 1920x1080
+bg6.jpg 1920x1080
+bg_menu.jpg 1920x1080
+bg_hangar.jpg 1920x1080
+bg_win.jpg 1920x1080
+bg_lose.jpg 1920x1080(recoupé) btn0-3.png : 3 frames de 200x150 ; ans.png : 4 frames de 420x230 (marges transparentes retirées, originaux dans design/orig_art)

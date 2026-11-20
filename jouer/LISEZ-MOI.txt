@@ -1,0 +1,2 @@
+Mettre ici l export HTML5 de GameMaker (index.html + html5game).
+Voir site-math-rush\README.md
