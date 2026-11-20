@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Math Rush">
+<meta name="theme-color" content="#0b1230">
+<meta name="robots" content="noindex">
+<title>Math Rush — Jouer</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;background:#0b1230;overflow:hidden;overscroll-behavior:none;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:none;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff}
+#gm4html5_div_id{position:fixed;inset:0;overflow:hidden}
+/* Chargement : logo derrière le canvas, recouvert dès que le jeu dessine */
+#chargement{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:radial-gradient(ellipse at center,#1d2f6e 0%,#0b1230 70%)}
+#chargement img{width:min(520px,70vw);height:auto;filter:drop-shadow(0 10px 20px rgba(0,0,0,.5))}
+#chargement .tour{width:44px;height:44px;border:5px solid rgba(255,255,255,.25);border-top-color:#ffc933;border-radius:50%;animation:t 1s linear infinite}
+#chargement p{margin:0;font-weight:600;color:#cfdcff}
+@keyframes t{to{transform:rotate(360deg)}}
+/* Le canvas 1920x1080 garde son ratio 16:9 et remplit l'écran (PC et téléphone) */
+canvas#canvas{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;margin:auto!important;
+  transform:none!important;z-index:1;
+  width:min(100vw,calc(100vh * 16 / 9))!important;height:min(100vh,calc(100vw * 9 / 16))!important;
+  touch-action:none;outline:none;image-rendering:auto}
+@supports (height:100dvh){
+  canvas#canvas{width:min(100vw,calc(100dvh * 16 / 9))!important;height:min(100dvh,calc(100vw * 9 / 16))!important}
+}
+/* Téléphone tenu à la verticale : demander de le tourner */
+#tourne{display:none;position:fixed;inset:0;z-index:10;background:#0b1230;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:24px}
+#tourne .tel{width:64px;height:104px;border:6px solid #ffc933;border-radius:14px;animation:r 2.4s ease-in-out infinite}
+@keyframes r{0%,25%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+#tourne b{font-size:1.4rem}#tourne span{color:#cfdcff}
+@media (orientation:portrait) and (pointer:coarse){#tourne{display:flex}}
+</style>
+</head>
+<body>
+<div class="gm4html5_div_class" id="gm4html5_div_id">
+  <div id="chargement"><img src="../img/logo.webp" alt="Math Rush"><div class="tour"></div><p id="txt-charge">Chargement…</p></div>
+  <canvas id="canvas" width="1920" height="1080" tabindex="0"><p>Your browser doesn't support HTML5 canvas.</p></canvas>
+</div>
+<div id="tourne"><div class="tel"></div><b id="t1">Tourne ton appareil</b><span id="t2">Math Rush se joue en mode paysage.</span></div>
+
+<script>
+(function(){
+  var en=(navigator.language||"fr").toLowerCase().indexOf("en")===0;
+  if(en){document.documentElement.lang="en";document.getElementById("txt-charge").textContent="Loading…";
+    document.getElementById("t1").textContent="Rotate your device";document.getElementById("t2").textContent="Math Rush is played in landscape.";}
+  // Pas de menu contextuel, de zoom ni de défilement
+  ["contextmenu","gesturestart","gesturechange","dblclick"].forEach(function(e){document.addEventListener(e,function(ev){ev.preventDefault();},{passive:false});});
+  document.addEventListener("touchmove",function(ev){ev.preventDefault();},{passive:false});
+  // Tactile : plein écran + paysage au premier toucher (là où le navigateur le permet)
+  var coarse=window.matchMedia&&window.matchMedia("(pointer:coarse)").matches;
+  if(coarse){
+    var once=function(){
+      document.removeEventListener("touchend",once,true);document.removeEventListener("pointerup",once,true);
+      var el=document.documentElement,rq=el.requestFullscreen||el.webkitRequestFullscreen;
+      try{ if(rq && !document.fullscreenElement && !document.webkitFullscreenElement){
+        var p=rq.call(el); var lock=function(){try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock("landscape").catch(function(){});}catch(e){}};
+        if(p&&p.then)p.then(lock).catch(function(){});else lock(); } }catch(e){}
+    };
+    document.addEventListener("touchend",once,true);document.addEventListener("pointerup",once,true);
+  }
+  // Le clavier doit toujours aller au jeu
+  var cv=document.getElementById("canvas");
+  window.addEventListener("load",function(){try{cv.focus();}catch(e){}});
+  document.addEventListener("pointerdown",function(){try{cv.focus({preventScroll:true});}catch(e){}});
+  // Charge le jeu (le nom du script ne change pas d'un export à l'autre)
+  var s=document.createElement("script");
+  s.src="html5game/MathRush.js?v="+Date.now();
+  s.onload=function(){ if(typeof GameMaker_Init==="function")GameMaker_Init(); };
+  s.onerror=function(){document.getElementById("txt-charge").textContent="Erreur de chargement · Load error";};
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>
